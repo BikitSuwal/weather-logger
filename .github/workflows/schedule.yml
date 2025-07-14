@@ -1,0 +1,25 @@
+name: Hourly Weather Logger
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # runs every hour at HH:00
+  workflow_dispatch:      # allows manual run from GitHub
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run the weather script
+        run: python weather.py
